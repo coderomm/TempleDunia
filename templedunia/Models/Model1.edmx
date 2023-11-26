@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="templeduniaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin_Login">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="UserPassword" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Blog_Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="blogTitle" Type="nvarchar(max)" />
+          <Property Name="blogDate" Type="nvarchar(max)" />
+          <Property Name="blogImage" Type="nvarchar(max)" />
+          <Property Name="blogDetail" Type="nvarchar(max)" />
+          <Property Name="blogStatus" Type="nvarchar(max)" />
+          <Property Name="blogRTS" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="int" Nullable="false" />
+          <Property Name="CityName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DistrictId" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContactEnquires">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uname" Type="nvarchar(max)" />
+          <Property Name="umob" Type="nvarchar(max)" />
+          <Property Name="uemail" Type="nvarchar(max)" />
+          <Property Name="usub" Type="nvarchar(max)" />
+          <Property Name="umsg" Type="nvarchar(max)" />
+          <Property Name="rts" Type="datetime" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="DistrictId" />
+          </Key>
+          <Property Name="DistrictId" Type="int" Nullable="false" />
+          <Property Name="DistrictName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StateId" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="int" Nullable="false" />
+          <Property Name="StateName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TempleListing">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sid" Type="int" Nullable="false" />
+          <Property Name="did" Type="int" Nullable="false" />
+          <Property Name="cid" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" />
+          <Property Name="detail" Type="nvarchar(max)" />
+          <Property Name="image1" Type="nvarchar(max)" />
+          <Property Name="image2" Type="nvarchar(max)" />
+          <Property Name="image3" Type="nvarchar(max)" />
+          <Property Name="image4" Type="nvarchar(max)" />
+          <Property Name="seoTitle" Type="nvarchar(max)" />
+          <Property Name="seoKeyword" Type="nvarchar(max)" />
+          <Property Name="seoDesc" Type="nvarchar(max)" />
+          <Property Name="status" Type="bit" />
+          <Property Name="rts" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="templeduniaModelStoreContainer">
+          <EntitySet Name="Admin_Login" EntityType="Self.Admin_Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Blog_Table" EntityType="Self.Blog_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactEnquires" EntityType="Self.ContactEnquires" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TempleListing" EntityType="Self.TempleListing" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="templeduniaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin_Login">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Blog_Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="blogTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="blogDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="blogImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="blogDetail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="blogStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="blogRTS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DistrictId" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContactEnquire">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="umob" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="uemail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="usub" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="umsg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="rts" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="DistrictId" />
+          </Key>
+          <Property Name="DistrictId" Type="Int32" Nullable="false" />
+          <Property Name="DistrictName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StateId" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TempleListing">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sid" Type="Int32" Nullable="false" />
+          <Property Name="did" Type="Int32" Nullable="false" />
+          <Property Name="cid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="image1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="image2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="image3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="image4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="seoTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="seoKeyword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="seoDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="rts" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="templeduniaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admin_Login" EntityType="Self.Admin_Login" />
+          <EntitySet Name="Blog_Table" EntityType="Self.Blog_Table" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="ContactEnquires" EntityType="Self.ContactEnquire" />
+          <EntitySet Name="Districts" EntityType="Self.District" />
+          <EntitySet Name="States" EntityType="Self.State" />
+          <EntitySet Name="TempleListings" EntityType="Self.TempleListing" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="templeduniaModelStoreContainer" CdmEntityContainer="templeduniaEntities">
+          <EntitySetMapping Name="Admin_Login">
+            <EntityTypeMapping TypeName="templeduniaModel.Admin_Login">
+              <MappingFragment StoreEntitySet="Admin_Login">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blog_Table">
+            <EntityTypeMapping TypeName="templeduniaModel.Blog_Table">
+              <MappingFragment StoreEntitySet="Blog_Table">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="blogTitle" ColumnName="blogTitle" />
+                <ScalarProperty Name="blogDate" ColumnName="blogDate" />
+                <ScalarProperty Name="blogImage" ColumnName="blogImage" />
+                <ScalarProperty Name="blogDetail" ColumnName="blogDetail" />
+                <ScalarProperty Name="blogStatus" ColumnName="blogStatus" />
+                <ScalarProperty Name="blogRTS" ColumnName="blogRTS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="templeduniaModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactEnquires">
+            <EntityTypeMapping TypeName="templeduniaModel.ContactEnquire">
+              <MappingFragment StoreEntitySet="ContactEnquires">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="uname" ColumnName="uname" />
+                <ScalarProperty Name="umob" ColumnName="umob" />
+                <ScalarProperty Name="uemail" ColumnName="uemail" />
+                <ScalarProperty Name="usub" ColumnName="usub" />
+                <ScalarProperty Name="umsg" ColumnName="umsg" />
+                <ScalarProperty Name="rts" ColumnName="rts" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="templeduniaModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="templeduniaModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TempleListings">
+            <EntityTypeMapping TypeName="templeduniaModel.TempleListing">
+              <MappingFragment StoreEntitySet="TempleListing">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="sid" ColumnName="sid" />
+                <ScalarProperty Name="did" ColumnName="did" />
+                <ScalarProperty Name="cid" ColumnName="cid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="detail" ColumnName="detail" />
+                <ScalarProperty Name="image1" ColumnName="image1" />
+                <ScalarProperty Name="image2" ColumnName="image2" />
+                <ScalarProperty Name="image3" ColumnName="image3" />
+                <ScalarProperty Name="image4" ColumnName="image4" />
+                <ScalarProperty Name="seoTitle" ColumnName="seoTitle" />
+                <ScalarProperty Name="seoKeyword" ColumnName="seoKeyword" />
+                <ScalarProperty Name="seoDesc" ColumnName="seoDesc" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="rts" ColumnName="rts" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

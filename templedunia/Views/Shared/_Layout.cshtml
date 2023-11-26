@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>TempleDuniya - @ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/assets/Images/TempleImages/ico.ico">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="../../css2?family=Nunito+Sans:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/Content/css/animate.css">
+    <link rel="stylesheet" href="~/Content/css/flaticon.css">
+    <link rel="stylesheet" href="~/Content/css/tiny-slider.css">
+    <link rel="stylesheet" href="~/Content/css/glightbox.min.css">
+    <link rel="stylesheet" href="~/Content/css/aos.css">
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="py-1 top-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md topper d-flex mb-md-0 align-items-xl-center">
+                    <div class="text">
+                        <p class="con"><span>Free Call</span> <span>+1 234 456 78910</span></p>
+                    </div>
+                </div>
+                <div class="col-md topper d-flex mb-md-0 align-items-xl-center">
+                    <div class="text text-md-right">
+                        <p class="con"><a href="#">Facebook</a> <a href="#">Twitter</a> <a href="#">Dribbble</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg  ftco-navbar-light">
+        <div class="container-xl">
+            <a class="navbar-brand d-flex align-items-center" href="~/">
+                <span class="flaticon flaticon-compass"></span>
+                <span class="">TempleDuniya <small>Directory and Listing</small></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span> Menu
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="~/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="~/About">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="~/TempleListing">Temple Listings</a></li>
+                    <li class="nav-item"><a class="nav-link" href="~/Article">Article</a></li>
+                </ul>
+                <p class="mb-0"><a href="~/Contact" class="btn btn-primary rounded"><span class="ion-ios-add"></span> Contact</a></p>
+            </div>
+        </div>
+    </nav>
+
+
+    @RenderBody()
+    <footer class="ftco-footer">
+        <div class="container-xl">
+            <div class="row mb-5 pb-5 justify-content-between">
+                <div class="col-md-6 col-lg">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2 logo d-flex">
+                            <a class="navbar-brand align-items-center" href="~/Home">
+                                <span class="">TempleDuniya <small>Directory and Listing</small></span>
+                            </a>
+                        </h2>
+                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                        <ul class="ftco-footer-social list-unstyled mt-2">
+                            <li><a href="#"><span class="fa fa-twitter"></span></a></li>
+                            <li><a href="#"><span class="fa fa-facebook"></span></a></li>
+                            <li><a href="#"><span class="fa fa-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-2">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Quick Links</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="~/Contact"><span class="fa fa-chevron-right mr-2"></span>Contact Us</a></li>
+                            <li><a href="~/About"><span class="fa fa-chevron-right mr-2"></span>About</a></li>
+                            <li><a href="~/TempleListing"><span class="fa fa-chevron-right mr-2"></span>Temple Listings</a></li>
+                            <li><a href="~/Article"><span class="fa fa-chevron-right mr-2"></span>Articles</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Have a Questions?</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span class="icon fa fa-map marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+                                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                                <li><a href="#"><span class="icon fa fa-paper-plane pr-4"></span><span class="text"><span class="__cf_email__" data-cfemail="274e494148675e48525543484a464e490944484a">[email&#160;protected]</span></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid px-0 py-5 bg-darken">
+            <div class="container-xl">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p class="mb-0" style="color: rgba(255,255,255,.5); font-size: 13px;">
+                            Copyright &copy; @DateTime.Now.Year All rights reserved | This TempleDuniya is made with <i class="fa fa-heart color-danger" aria-hidden="true"></i> by <a href="https://www.linkedin.com/in/om-sharma-9abb3a258/" target="_blank" rel="nofollow noopener">coder.om</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/Content/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/js/tiny-slider.js"></script>
+    <script src="~/Content/js/glightbox.min.js"></script>
+    <script src="~/Content/js/rellax.min.js"></script>
+    <script src="~/Content/js/aos.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="~/Content/js/google-map.js"></script>
+    <script src="~/Content/js/main.js"></script>
+
+    <script async="" src="../../gtag/js-1?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+    <script defer="" src="../../beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816-1" integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7cc3459129f733a8","version":"2023.4.0","b":1,"token":"cd0b4b3a733644fc843ef0b185f98241","si":100}' crossorigin="anonymous"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

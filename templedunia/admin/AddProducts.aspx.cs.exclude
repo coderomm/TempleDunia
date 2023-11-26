@@ -1,0 +1,520 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class AddProducts : System.Web.UI.Page
+{
+    ClsConnection Cnn = new ClsConnection();
+    string Filename;
+    string Img1Id, Img2Id, Img3Id;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            Cnn.Open();
+            DataTable Dt = Cnn.FillTable(" select * from V#ProductDetail where ActiveStatus=1", "Cat");
+            LstDay.DataSource = Dt;
+            LstDay.DataBind();
+            Cnn.Close();
+            DDCate();
+            Cartegory();
+        }
+    }
+
+    public void Cartegory()
+    {
+        Cnn.Open();
+        DataTable Dt = Cnn.FillTable("Select 'CategoryId'=-1,'CategoryName'='<--Select Category Name -->' union  select CategoryId,CategoryName from M_CategoryMaster where ActiveStatus=1", "Cat");
+        ddcategory.DataSource = Dt;
+        ddcategory.DataBind();
+        Cnn.Close();
+    }
+
+
+    public void DDCate()
+    {
+        Cnn.Open();
+        DataTable Dt = Cnn.FillTable("Select 'CategoryId'=-1,'CategoryName'='<--Select Category Name -->' union  select CategoryId,CategoryName from M_CategoryMaster where ActiveStatus=1", "Cat");
+        DDcttt.DataSource = Dt;
+        DDcttt.DataBind();
+        Cnn.Close();
+    }
+
+    protected void ddcategory_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Cnn.Open();
+        DataTable city = Cnn.FillTable("Select 'BrandId'=-1,'BrandName'='<--Select Brand Name -->' union  select BrandId,BrandName from M_BrandMaster where CategoryId='" + ddcategory.SelectedValue + "' And ActiveStatus=1", "State");
+        DDbrand.DataSource = city;
+        DDbrand.DataBind();
+        DDBddd.Focus();
+        Cnn.Close();
+    }
+    protected void LstDay_ItemCommand(object sender, ListViewCommandEventArgs e)
+    {
+        try
+        {
+            if (e.CommandName == "Edit")
+            {
+                Pid.Value = ((HiddenField)e.Item.FindControl("ProductID")).Value;
+                Bid.Value = ((HiddenField)e.Item.FindControl("BrandId")).Value;
+                Cid.Value = ((HiddenField)e.Item.FindControl("CategoryID")).Value;
+                txtProducts.Text = ((Label)e.Item.FindControl("ProductName")).Text;
+                CKEditor1.Text = ((Label)e.Item.FindControl("Description")).Text;
+                CKEditorControl1.Text = ((Label)e.Item.FindControl("Highlights")).Text;
+                TxtPrice.Text = ((Label)e.Item.FindControl("Price")).Text;
+                TxtDealerPrice.Text = ((Label)e.Item.FindControl("DealerPrice")).Text;
+                TxtDiscount.Text = ((Label)e.Item.FindControl("Discount")).Text;
+                TxtDealerDiscount.Text = ((Label)e.Item.FindControl("DealerDiscount")).Text;
+                //Quantity
+                TxtTag.Text = ((Label)e.Item.FindControl("Tags")).Text;
+                TxtQuantity.Text = ((Label)e.Item.FindControl("Quantity")).Text;
+                string im = ((Label)e.Item.FindControl("Image")).Text;
+
+                DataTable city = Cnn.FillTable("Select CategoryId,CategoryName from M_CategoryMaster where CategoryId='" + Cid.Value + "'", "State");
+                ddcategory.DataSource = city;
+                ddcategory.DataBind();
+
+
+                DataTable uuu = Cnn.FillTable("Select BrandId,BrandName from M_BrandMaster where CategoryId='" + Cid.Value + "'", "State");
+                DDbrand.DataSource = uuu;
+                DDbrand.DataBind();
+
+                ImageButton1.Visible = true;
+                ImageButton1.ImageUrl = "~/img/Products/" + im;
+
+                DataTable DtImages = Cnn.FillTable("Select ID,Image,ProductID From M_ProductGallery Where ActiveStatus=1 AND ProductID=" + Pid.Value + "", "DtImages");
+
+                for (int i = 1; i <= DtImages.Rows.Count; i++)
+                {
+                    if (i == 1)
+                    {
+                        img1.ImageUrl = "~/img/Products/" + DtImages.Rows[0]["Image"].ToString() + "";
+                        img1.AlternateText = DtImages.Rows[0]["ID"].ToString();
+                        img1.Visible = true;
+
+                    }
+
+                    if (i == 2)
+                    {
+                        img2.ImageUrl = "~/img/Products/" + DtImages.Rows[1]["Image"].ToString() + "";
+                        img2.AlternateText = DtImages.Rows[1]["ID"].ToString();
+                        img2.Visible = true;
+                    }
+
+                    if (i == 3)
+                    {
+                        img3.ImageUrl = "~/img/Products/" + DtImages.Rows[2]["Image"].ToString() + "";
+                        img3.AlternateText = DtImages.Rows[2]["ID"].ToString();
+                        img3.Visible = true;
+                    }
+                }
+
+
+
+                //    DataTable DtGallery = Cnn.FillDataSet("Select * From M_ProductGallery Where ActiveStatus=")
+                Cnn.Close();
+                Submit.Text = "Update";
+
+
+            }
+            if (e.CommandName == "deactive")
+            {
+                if (LstDay.Items.Count > 0)
+                {
+                    for (int i = 0; i < LstDay.Items.Count; i++)
+                    {
+                        if (((CheckBox)LstDay.Items[i].FindControl("ChkBox")).Checked == true)
+                        {
+                            Cnn.Open();
+
+                            string id = ((HiddenField)LstDay.Items[i].FindControl("ProductID")).Value;
+                            Cnn.ExecuteNonQuery("update M_ProductMaster set  ActiveStatus=0 where ProductID='" + id + "'");
+                            Cnn.Close();
+                            Response.Write("<script LANGUAGE='JavaScript' >alert('Product DeaActive')</script>");
+                            Response.Redirect("AddProducts.aspx");
+                        }
+                    }
+                }
+            }
+
+            if (e.CommandName == "ChkAllRate")
+            {
+                Cnn.Open();
+                try
+                {
+                    foreach (ListViewItem myListViewItem in LstDay.Items)
+                    {
+                        //****************************************************************************
+                        Label templbl = myListViewItem.FindControl("lbluserprice") as Label;
+                        templbl.Visible = false;
+
+                        TextBox temptt = myListViewItem.FindControl("Txtuserprice") as TextBox;
+                        temptt.Visible = true;
+
+                        temptt.Text = templbl.Text;
+
+                        //****************************************************************************
+                        Label templbl2 = myListViewItem.FindControl("lbluserdiscount") as Label;
+                        templbl2.Visible = false;
+
+                        TextBox temptt2 = myListViewItem.FindControl("Txtuserdiscount") as TextBox;
+                        temptt2.Visible = true;
+
+                        temptt2.Text = templbl2.Text;
+                        //****************************************************************************
+                        Label templbl3 = myListViewItem.FindControl("lblDealerPrice") as Label;
+                        templbl3.Visible = false;
+
+                        TextBox temptt3 = myListViewItem.FindControl("TxtDealerPrice") as TextBox;
+                        temptt3.Visible = true;
+
+                        temptt3.Text = templbl3.Text;
+                        //****************************************************************************
+                        Label templbl4 = myListViewItem.FindControl("lblDealerdiscount") as Label;
+                        templbl4.Visible = false;
+
+                        TextBox temptt4 = myListViewItem.FindControl("TxtDealerdiscount") as TextBox;
+                        temptt4.Visible = true;
+
+                        temptt4.Text = templbl4.Text;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Response.Write(ex.Message);
+                }
+                Cnn.Close();
+            }
+
+
+            if (e.CommandName == "UpdateAllRate")
+            {
+                Cnn.Open();
+                try
+                {
+                    string ProductId = "";
+                    string UserPrice = "";
+                    string UserDiscount = "";
+                    string DelarPrice = "";
+                    string Delardiscount = "";
+
+
+                    foreach (ListViewItem myListViewItem in LstDay.Items)
+                    {
+                        Label tempProdcode = myListViewItem.FindControl("LblProductId") as Label;
+                        TextBox price = myListViewItem.FindControl("Txtuserprice") as TextBox;
+                        TextBox dis = myListViewItem.FindControl("Txtuserdiscount") as TextBox;
+                        TextBox dprice = myListViewItem.FindControl("TxtDealerPrice") as TextBox;
+                        TextBox ddis = myListViewItem.FindControl("TxtDealerdiscount") as TextBox;
+                        ProductId = tempProdcode.Text;
+                        UserPrice = price.Text;
+                        UserDiscount = dis.Text;
+                        DelarPrice = dprice.Text;
+                        Delardiscount = ddis.Text;
+                        Cnn.ExecuteNonQuery("update M_ProductMaster set Price='" + UserPrice + "',DealerPrice='" + DelarPrice + "',Discount='" + UserDiscount + "',DealerDiscount='" + Delardiscount + "' where ProductID='" + ProductId + "'");
+
+
+                        ProductId = "";
+                        UserPrice = "";
+                        UserDiscount = "";
+                        DelarPrice = "";
+                        Delardiscount = "";
+                    }
+                    Response.Write("<script LANGUAGE='JavaScript' >alert('Update  Successful')</script>");
+
+                    LstDay.DataBind();
+                }
+                catch (Exception ex)
+                {
+                    Response.Write(ex.Message);
+                }
+                Cnn.Close();
+            }
+
+        }
+        catch
+        {
+
+        }
+
+
+    }
+    protected void LstDay_ItemEditing(object sender, ListViewEditEventArgs e)
+    {
+
+    }
+    protected void Submit_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Cnn.Open();
+            // update Code====================================================================
+            #region
+            if (Submit.Text == "Update")
+            {
+                if (MainImage.HasFile)
+                {
+                    byte[] image = MainImage.FileBytes;
+                    ImageHandler imageHandler = new ImageHandler();
+                    Filename = Pid.Value + ".jpg";
+
+                    Bitmap bmpmain = imageHandler.CreateThumbnail(image, false, 600, 600);
+                    if (bmpmain != null)
+                    {
+
+                        bmpmain.Save(Server.MapPath("~/img/Products/" + Filename), System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+
+                    Cnn.ExecuteNonQuery("Update  M_ProductMaster set ProductName='" + txtProducts.Text + "',Description='" + CKEditor1.Text + "',Price='" + TxtPrice.Text + "',DealerPrice='" + TxtDealerPrice.Text + "',Discount='" + TxtDiscount.Text + "',DealerDiscount='" + TxtDealerDiscount.Text + "',Tags='" + TxtTag.Text + "',Highlights='" + CKEditorControl1.Text + "',Image='" + Filename + "' where  ProductID='" + Pid.Value + "'");
+                    //where  ProductID='"+Pid.Value+"'  
+                    Cnn.ExecuteNonQuery("Update  Im_CurrentStock set Quantity='" + TxtQuantity.Text + "' where ProductID='" + Pid.Value + "'");
+
+
+                }
+                else
+                {
+                    Cnn.ExecuteNonQuery("Update  M_ProductMaster set ProductName='" + txtProducts.Text + "',Description='" + CKEditor1.Text + "',Price='" + TxtPrice.Text + "',DealerPrice='" + TxtDealerPrice.Text + "',Discount='" + TxtDiscount.Text + "',DealerDiscount='" + TxtDealerDiscount.Text + "',Tags='" + TxtTag.Text + "',Highlights='" + CKEditorControl1.Text + "' where  ProductID='" + Pid.Value + "'");
+                    Cnn.ExecuteNonQuery("Update  Im_CurrentStock set Quantity='" + TxtQuantity.Text + "' where ProductID='" + Pid.Value + "'");
+                }
+
+                // other image upload systems
+                if (MainImage.HasFile)
+                {
+                    byte[] image = MainImage.FileBytes;
+                    ImageHandler imageHandler = new ImageHandler();
+                    Filename = Pid.Value + "_01" + ".jpg";
+
+                    Bitmap bmpmain = imageHandler.CreateThumbnail(image, false, 600, 600);
+                    if (bmpmain != null)
+                    {
+
+                        bmpmain.Save(Server.MapPath("~/img/Products/" + Filename), System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    Cnn.ExecuteNonQuery("Update  M_ProductGallery set Image='" + Filename + "' where Id='" + img1.AlternateText + "'");
+                }
+                if (Image1.HasFile)
+                {
+                    byte[] image = Image1.FileBytes;
+                    ImageHandler imageHandler = new ImageHandler();
+                    Filename = Pid.Value + "_02" + ".jpg";
+
+                    Bitmap bmpmain = imageHandler.CreateThumbnail(image, false, 600, 600);
+                    if (bmpmain != null)
+                    {
+
+                        bmpmain.Save(Server.MapPath("~/img/Products/" + Filename), System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    Cnn.ExecuteNonQuery("Update  M_ProductGallery set Image='" + Filename + "' where Id='" + img1.AlternateText + "'");
+                }
+                if (Image2.HasFile)
+                {
+
+                    byte[] image = Image2.FileBytes;
+                    ImageHandler imageHandler = new ImageHandler();
+                    Filename = Pid.Value + "_03" + ".jpg";
+
+                    Bitmap bmpmain = imageHandler.CreateThumbnail(image, false, 600, 600);
+                    if (bmpmain != null)
+                    {
+
+                        bmpmain.Save(Server.MapPath("~/img/Products/" + Filename), System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    Cnn.ExecuteNonQuery("Update  M_ProductGallery set Image='" + Filename + "' where Id='" + img2.AlternateText + "'");
+                }
+
+                if (Image3.HasFile)
+                {
+
+                    byte[] image = Image3.FileBytes;
+                    ImageHandler imageHandler = new ImageHandler();
+                    Filename = Pid.Value + "_04" + ".jpg";
+
+                    Bitmap bmpmain = imageHandler.CreateThumbnail(image, false, 600, 600);
+                    if (bmpmain != null)
+                    {
+
+                        bmpmain.Save(Server.MapPath("~/img/Products/" + Filename), System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    Cnn.ExecuteNonQuery("Update  M_ProductGallery set Image='" + Filename + "' where Id='" + img3.AlternateText + "'");
+                }
+
+                Response.Write("<script LANGUAGE='JavaScript' >alert('Update  Successful')</script>");
+                Response.Redirect("AddProducts.aspx");
+            }
+            #endregion
+            #region
+            //            Insert Code=============================================================
+            else
+            {
+                if (ddcategory.SelectedValue == "-1")
+                {
+                    LblErr.Text = "Select Category !!!";
+                    return;
+                }
+                if (DDbrand.SelectedValue == "-1")
+                {
+                    LblErr.Text = "Select Brand !!!";
+                    return;
+                }
+
+                if (txtProducts.Text == "")
+                {
+                    LblErr.Text = "Insert Products Name !!!";
+                    return;
+                }
+                if (TxtPrice.Text == "")
+                {
+                    LblErr.Text = "Insert Price  !!!";
+                    return;
+                }
+                if (TxtDiscount.Text == "")
+                {
+                    LblErr.Text = "Insert Discount !!!";
+                    return;
+                }
+                if (TxtDealerPrice.Text == "")
+                {
+                    LblErr.Text = "Insert Dealer Price !!!";
+                    return;
+                }
+                if (TxtDealerDiscount.Text == "")
+                {
+                    LblErr.Text = "Insert Dealer Discount !!!";
+                    return;
+                }
+                if (TxtQuantity.Text == "")
+                {
+                    LblErr.Text = "Insert Quantity !!!";
+                    return;
+                }
+
+                int ProductID = Convert.ToInt32(Cnn.ExecuteScalar("Select IsNull(Max(ProductID)+1,1) From M_ProductMaster"));
+
+
+                if (MainImage.HasFile)
+                {
+                    byte[] image = MainImage.FileBytes;
+                    ImageHandler imageHandler = new ImageHandler();
+                    Filename = ProductID + ".jpg";
+
+                    Bitmap bmpmain = imageHandler.CreateThumbnail(image, false, 600, 600);
+                    if (bmpmain != null)
+                    {
+
+                        bmpmain.Save(Server.MapPath("~/img/Products/" + Filename), System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    Cnn.ExecuteNonQuery("insert into M_ProductMaster (CategoryID,BrandID,ProductID,ProductName,Description,Price,DealerPrice,Discount,DealerDiscount,Tags,OnSale,Highlights,Image) Values ('" + ddcategory.SelectedValue + "','" + DDbrand.SelectedValue + "','" + ProductID + "','" + txtProducts.Text + "','" + CKEditor1.Text + "','" + TxtPrice.Text + "','" + TxtDealerPrice.Text + "','" + TxtDiscount.Text + "','" + TxtDealerDiscount.Text + "','" + TxtTag.Text + "','" + CheckBox1.Checked + "','" + CKEditorControl1.Text + "','" + Filename + "')");
+                    Cnn.ExecuteNonQuery("insert into Im_CurrentStock (ProductID,Quantity) values ('" + ProductID + "','" + TxtQuantity.Text + "')");
+
+                }
+
+                else
+                {
+
+                    LblErr.Text = "Select Products Image !!!";
+
+                }
+                if (MainImage.HasFile)
+                {
+                    int GID = Convert.ToInt32(Cnn.ExecuteScalar("Select IsNull(Max(Id)+1,1) From M_ProductGallery"));
+                    byte[] image = MainImage.FileBytes;
+                    ImageHandler imageHandler = new ImageHandler();
+                    Filename = ProductID + "_01" + ".jpg";
+
+                    Bitmap bmpmain = imageHandler.CreateThumbnail(image, false, 600, 600);
+                    if (bmpmain != null)
+                    {
+
+                        bmpmain.Save(Server.MapPath("~/img/Products/" + Filename), System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    Cnn.ExecuteNonQuery("insert into M_ProductGallery(ProductID,Id,Image) values ('" + ProductID + "','" + GID + "','" + Filename + "')");
+                }
+                if (Image1.HasFile)
+                {
+                    int GID = Convert.ToInt32(Cnn.ExecuteScalar("Select IsNull(Max(Id)+1,1) From M_ProductGallery"));
+                    byte[] image = Image1.FileBytes;
+                    ImageHandler imageHandler = new ImageHandler();
+                    Filename = ProductID + "_02" + ".jpg";
+
+                    Bitmap bmpmain = imageHandler.CreateThumbnail(image, false, 600, 600);
+                    if (bmpmain != null)
+                    {
+
+                        bmpmain.Save(Server.MapPath("~/img/Products/" + Filename), System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    Cnn.ExecuteNonQuery("insert into M_ProductGallery(ProductID,Id,Image) values ('" + ProductID + "','" + GID + "','" + Filename + "')");
+                }
+                if (Image2.HasFile)
+                {
+                    int GID = Convert.ToInt32(Cnn.ExecuteScalar("Select IsNull(Max(Id)+1,1) From M_ProductGallery"));
+                    byte[] image = Image2.FileBytes;
+                    ImageHandler imageHandler = new ImageHandler();
+                    Filename = ProductID + "_03" + ".jpg";
+
+                    Bitmap bmpmain = imageHandler.CreateThumbnail(image, false, 600, 600);
+                    if (bmpmain != null)
+                    {
+
+                        bmpmain.Save(Server.MapPath("~/img/Products/" + Filename), System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    Cnn.ExecuteNonQuery("insert into M_ProductGallery(ProductID,Id,Image) values ('" + ProductID + "','" + GID + "','" + Filename + "')");
+                }
+
+                if (Image3.HasFile)
+                {
+                    int GID = Convert.ToInt32(Cnn.ExecuteScalar("Select IsNull(Max(Id)+1,1) From M_ProductGallery"));
+                    byte[] image = Image3.FileBytes;
+                    ImageHandler imageHandler = new ImageHandler();
+                    Filename = ProductID + "_04" + ".jpg";
+
+                    Bitmap bmpmain = imageHandler.CreateThumbnail(image, false, 600, 600);
+                    if (bmpmain != null)
+                    {
+
+                        bmpmain.Save(Server.MapPath("~/img/Products/" + Filename), System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
+                    Cnn.ExecuteNonQuery("Insert Into M_ProductGallery(ProductID,Id,Image) values ('" + ProductID + "','" + GID + "','" + Filename + "')");
+                }
+
+                Response.Write("<script LANGUAGE='JavaScript' >alert('Successful')</script>");
+                Response.Redirect("AddProducts.aspx");
+            }
+            #endregion
+
+
+            Cnn.Close();
+        }
+        catch (Exception Ex)
+        {
+            Response.Write(Ex.Message);
+        }
+    }
+    protected void DDcttt_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Cnn.Open();
+        DataTable city = Cnn.FillTable("Select 'BrandId'=-1,'BrandName'='<--Select Brand Name -->' union  select BrandId,BrandName from M_BrandMaster where CategoryId='" + DDcttt.SelectedValue + "' And ActiveStatus=1", "State");
+        DDBddd.DataSource = city;
+        DDBddd.DataBind();
+        DataTable DTT = Cnn.FillTable("select * from V#ProductDetail where ActiveStatus=1 and CategoryId='" + DDcttt.SelectedValue + "'", "Cat");
+        LstDay.DataSource = DTT;
+        LstDay.DataBind();
+        LstDay.Focus();
+        Cnn.Close();
+
+    }
+    protected void DDBddd_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Cnn.Open();
+        DataTable DTT = Cnn.FillTable("select * from V#ProductDetail where ActiveStatus=1 and BrandId='" + DDBddd.SelectedValue + "'", "Cat");
+        LstDay.DataSource = DTT;
+        LstDay.DataBind();
+        LstDay.Focus();
+        Cnn.Open();
+    }
+}

@@ -1,0 +1,229 @@
+﻿@model templedunia.Models.TempleListing
+@{
+    ViewBag.Title = "Add Temple";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/ckeditor/ckeditor.js"></script>
+<div class="page-wrapper">
+    <div class="page-content">
+        <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="breadcrumb-title pe-3">Forms</div>
+            <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 p-0">
+                        <li class="breadcrumb-item">
+                            <a href="~/Admin"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Form Layouts</li>
+                    </ol>
+                </nav>
+            </div>
+
+        </div>
+        <!--end breadcrumb-->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h6 class="mb-0 text-uppercase">Add Temple</h6>
+                <hr>
+                <div class="card border-top border-0 border-4 border-danger">
+                    <div class="card-body p-5">
+                        <div class="card-title d-flex align-items-center">
+                            <h5 class="mb-0 text-danger">Add Temple & Details</h5>
+                        </div>
+                        <hr>
+                        @using (Html.BeginForm("AddTemple", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "row g-3" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="col-lg-4 col-sm-4 col-12">
+                                    <label class="form-label">State</label>
+                                    @Html.DropDownListFor(model => model.sid, ViewBag.stateList as SelectList, "Select State", new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessage("sid", "", new { @class = "text-danger" })
+                                </div>
+
+                            <div class="col-lg-4 col-sm-4 col-12">
+                                    <label class="form-label">District</label>
+                                    @Html.DropDownList("did", new SelectList(string.Empty, "Value", "Text"), "", new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessage("did", "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-lg-4 col-sm-4 col-12">
+                                    <label class="form-label">City</label>
+                                    @Html.DropDownList("cid", new SelectList(string.Empty, "Value", "Text"), "", new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessage("cid", "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="col-lg-12 col-12">
+                                <label for="name" class="form-label">Temple Name</label>
+                                <div class="input-group">
+                                    <input name="name" type="text" class="form-control" id="name" placeholder="Temple Name">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <label for="pdetails" class="form-label">Temple About Section</label>
+                                <textarea name="detail" class="form-control" id="detail" placeholder="Enter About Temple" rows="3"></textarea>
+                            </div>
+                            @*<script>
+                                    CKEDITOR.replace("detail");
+                            </script>*@
+                            <div class="col-lg-4">
+                                <label for="image1" class="form-label">Temple Image 1</label>
+                                <div class="input-group">
+                                    <input name="image1" class="form-control" type="file" id="image1">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <label for="image2" class="form-label">Temple Image 2</label>
+                                <div class="input-group">
+                                    <input name="image2" class="form-control" type="file" id="image2">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <label for="image3" class="form-label">Temple Image 3</label>
+                                <div class="input-group">
+                                    <input name="image3" class="form-control" type="file" id="image3">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <label for="image3" class="form-label">Temple Image 4</label>
+                                <div class="input-group">
+                                    <input name="image4" class="form-control" type="file" id="image4">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <label for="seoTitle" class="form-label">SEO Title</label>
+                                <div class="input-group">
+                                    <input name="seoTitle" type="text" class="form-control" id="seoTitle" placeholder="Temple Name">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label for="seoKeyword" class="form-label">SEO Keyword</label>
+                                <textarea name="seoKeyword" class="form-control" id="seoKeyword" placeholder="Enter About Temple" rows="3"></textarea>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label for="seoDesc" class="form-label">SEO Description</label>
+                                <textarea name="seoDesc" class="form-control" id="seoDesc" placeholder="Enter About Temple" rows="3"></textarea>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-danger px-5">Add Temple</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h6 class="mb-0 text-uppercase">Temples DataTable</h6>
+        <hr>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>SID</th>
+                                <th>DID</th>
+                                <th>CID</th>
+                                <th>Name</th>
+                                <th>Image 1</th>
+                                <th>Status</th>
+                                <th>A/D</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in @ViewBag.AllTemple)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.sid</td>
+                                    <td>@item.did</td>
+                                    <td>@item.cid</td>
+                                    <td>@item.name</td>
+                                    <td><img src="@Url.Content("~/Content/assets/Images/TempleImages/" + @item.image1)" class="img-fluid" height="50" width="50" /></td>
+                                    <td>@item.status</td>
+                                    @{
+                                        if (item.status == true)
+                                        {
+                                            <td><a href="@Url.Action("ChangeToDeactive", "Admin",new {id=item.Id})" class="btn btn-secondary">Deactive</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td><a href="@Url.Action("ChangeToActive", "Admin",new {id=item.Id})" class="btn btn-success">Active</a></td>
+                                        }
+                                    }
+                                    <td><a href="@Url.Action("EditTemple", "Admin",new {id=item.Id})" class="btn btn-primary">Edit</a></td>
+                                    <td><a href="@Url.Action("DeleteTemple", "Admin",new {id=item.Id})" class="btn btn-danger">Delete</a></td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(function () {
+        $('#sid').change(function () {
+            //alert($('#property_state').val());
+            $.getJSON('/Admin/DistrictList/' + $('#sid').val(), function (data) {
+                var items = '';
+                var dropdown = document.getElementById("did");
+                $(dropdown).empty();
+
+                var newOption1 = document.createElement("option");
+                newOption1.innerHTML = "Select District";  //innerHTML & not Text
+                newOption1.value = "0";
+                dropdown.options.add(newOption1);
+
+                $.each(data, function (i, district) {
+                    var newOption = document.createElement("option");
+                    newOption.innerHTML = district.Text;  //innerHTML & not Text
+                    newOption.value = district.Value;
+                    dropdown.options.add(newOption);
+                });
+            });
+        });
+    });
+</script>
+
+<script>
+    $(function () {
+        $('#did').change(function () {
+            //alert($('#property_state').val());
+            $.getJSON('/Admin/TehsilList/' + $('#did').val(),
+                function (data) {
+                    var items = '';
+                    var dropdown = document.getElementById("cid");
+                    $(dropdown).empty();
+
+                    var newOption1 = document.createElement("option");
+                    newOption1.innerHTML = "Select City";  //innerHTML & not Text
+                    newOption1.value = "0";
+                    dropdown.options.add(newOption1);
+
+                    $.each(data, function (i, district) {
+                        var newOption = document.createElement("option");
+                        newOption.innerHTML = district.Text;  //innerHTML & not Text
+                        newOption.value = district.Value;
+                        dropdown.options.add(newOption);
+                    });
+                });
+        });
+    });
+</script>

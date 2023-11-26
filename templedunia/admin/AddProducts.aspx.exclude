@@ -1,0 +1,311 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin/admin.master" AutoEventWireup="true" CodeFile="AddProducts.aspx.cs" Inherits="AddProducts" %>
+  
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <style>
+        .form-control1 {
+
+            color:black !important;
+        }
+         .form-control {
+
+            color:black !important;
+        }
+        
+    </style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+   <br />
+     <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2 col-md-2 col-lg-2">
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <div class="grids">
+                    <div class="progressbar-heading grids-heading">
+                      
+                    </div>
+                    <div class="panel panel-widget forms-panel">
+                        <div class="forms">
+                            <div class="form-grids widget-shadow" data-example-id="basic-forms">
+                                <div class="form-title">
+                                    <h4>Add Products :</h4>
+                                </div>
+                                <div class="form-body" style="border: solid 1px gray">
+                                    <form>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Select Category</label>
+                                                <asp:DropDownList ID="ddcategory" runat="server" AutoPostBack="true" TabIndex="1" class="form-control1" DataValueField="CategoryId" DataTextField="CategoryName" OnSelectedIndexChanged="ddcategory_SelectedIndexChanged" Style="color: black">
+                                                </asp:DropDownList>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Select Brand</label>
+                                                <asp:DropDownList ID="DDbrand" runat="server" AutoPostBack="true" TabIndex="2" class="form-control1" DataValueField="BrandId" DataTextField="BrandName" Style="color: black">
+                                                </asp:DropDownList>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Product Name</label>
+                                                <asp:TextBox ID="txtProducts" runat="server" TextMode="MultiLine" Rows="3" placeholder="Product Name" class="form-control"></asp:TextBox>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Price</label>
+                                                <asp:TextBox ID="TxtPrice" runat="server" placeholder="Price" class="form-control"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <script type="text/javascript">
+                                                    function numericFilter(TxtDiscount) {
+                                                        TxtDiscount.value = TxtDiscount.value.replace(/[^\0-9]/ig, "");
+                                                    }
+                                                </script>
+                                                <label for="exampleInputPassword1">Discount</label>
+                                                <asp:TextBox ID="TxtDiscount" runat="server"  placeholder="Discount" class="form-control" onKeyUp="numericFilter(this);"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Dealer Price</label>
+                                                <asp:TextBox ID="TxtDealerPrice" runat="server" placeholder="Dealer Price"  class="form-control"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                 <script type="text/javascript">
+                                                     function numericFilter(TxtDealerDiscount) {
+                                                         TxtDealerDiscount.value = TxtDealerDiscount.value.replace(/[^\0-9]/ig, "");
+                                                     }
+                                                </script>
+                                                <label for="exampleInputPassword1">Dealer Discount</label>
+                                                <asp:TextBox ID="TxtDealerDiscount" runat="server" placeholder="Dealer Discount"  class="form-control" onKeyUp="numericFilter(this);"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Main Image</label>
+                                                <asp:FileUpload ID="MainImage" runat="server" />
+                                            </div>
+                                            <asp:ImageButton ID="ImageButton1" runat="server"  Visible="false" Style="height:100px;" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Image 1</label>
+                                                <asp:FileUpload ID="Image1" runat="server" />
+                                            </div>
+                                                 <asp:ImageButton ID="img1" runat="server" Visible="false"   AlternateText="" Style="height:100px;"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Image 2</label>
+                                                <asp:FileUpload ID="Image2" runat="server" />
+                                            </div>
+                                                 <asp:ImageButton ID="img2" runat="server" Visible="false" Style="height:100px;" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Image 3</label>
+                                                <asp:FileUpload ID="Image3" runat="server" />
+                                            </div>
+                                                 <asp:ImageButton ID="img3" runat="server" Visible="false" Style="height:100px;" />
+                                        </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Quantity</label>
+                                               <asp:TextBox ID="TxtQuantity" runat="server" placeholder="Quantity" class="form-control"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Tag</label>
+                                               <asp:TextBox ID="TxtTag" runat="server" placeholder="Quantity" class="form-control"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                          <div class="col-md12">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Description</label>
+                                                <%--<CKEditor:CKEditorControl ID="CKEditor1" BasePath="~/ckeditor/" runat="server"></CKEditor:CKEditorControl>--%>
+                                            </div>
+                                        </div>
+                                          <div class="col-md12">
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">specification</label>
+                                                <%--<CKEditor:CKEditorControl ID="CKEditorControl1" BasePath="~/ckeditor/" runat="server"></CKEditor:CKEditorControl>--%>
+                                            </div>
+                                        </div>
+                                        <asp:CheckBox ID="CheckBox1" runat="server" Text="&nbsp;&nbsp;&nbsp;Sales Active" Checked="false" />
+                                        <br />
+                                        <asp:Label ID="LblErr" runat="server" ForeColor="Red"></asp:Label>
+                                        <asp:Button ID="Submit" runat="server" Text="Submit" class="btn btn-info" OnClick="Submit_Click" />
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+            </div>
+        </div>
+    </div>
+
+
+
+    <br />
+     <br />
+     <br />
+    
+     <div class="container-fluid">
+        <div class="row">
+         
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                  <div class="form-group">
+                       <label for="exampleInputPassword1">  Select Category:</label>
+            <asp:DropDownList ID="DDcttt" runat="server"  class="form-control" DataValueField="CategoryId" DataTextField="CategoryName" OnSelectedIndexChanged="DDcttt_SelectedIndexChanged" AutoPostBack="true" Style="color: black !important"></asp:DropDownList>
+                      </div>
+                </div>
+              <div class="col-sm-6 col-md-6 col-lg-6">    <div class="form-group">
+                       <label for="exampleInputPassword1">   Select Brand:</label>
+            <asp:DropDownList ID="DDBddd" runat="server"  class="form-control" DataValueField="BrandId" DataTextField="BrandName"  AutoPostBack="true" Style="color: black !important" OnSelectedIndexChanged="DDBddd_SelectedIndexChanged"></asp:DropDownList>
+                  </div>
+                </div>
+            </div>
+         </div>
+     <br />
+ 
+     <div class="container-fluid">
+        <div class="row">
+         
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                 <asp:HiddenField ID="Pid" runat="server" />
+                 <asp:HiddenField ID="Bid" runat="server" />
+                 <asp:HiddenField ID="Cid" runat="server" />
+               
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Data Update</strong>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover"  style="border:solid 1px gray">
+                                <asp:ListView ID="LstDay" runat="server" OnItemCommand="LstDay_ItemCommand" OnItemEditing="LstDay_ItemEditing">
+                                    <LayoutTemplate>
+                                        <thead class="thead-dark">
+                                      
+                                            <tr style="font-size:13px">
+                                                <th scope="col"  style="width:10px">S.No</th>
+                                                 <th scope="col" style="width:20px"><asp:LinkButton ID="the" runat="server" CommandName="deactive" Font-Bold="true" ForeColor="#3c8dbc">deactive</asp:LinkButton></th>
+                                                 <th scope="col">image</th>  
+                                                 <th scope="col">Products Name</th>     
+                                                  <th scope="col">Category Name</th>
+                                                  <th scope="col">Brand Name</th>
+                                                  <th scope="col">Price<br />
+                                                          <asp:LinkButton ID="LnkBtnView" runat="server" CommandName="ChkAllRate" Text="Edit" Font-Bold="true" ForeColor="#ff0000"></asp:LinkButton>
+                                                  </th>
+                                                  <th scope="col">Discount<br /> <asp:LinkButton ID="LinkButton1" runat="server" CommandName="UpdateAllRate" Text="Update" Font-Bold="true" ForeColor="#ff0000"></asp:LinkButton></th>
+                                                  <th scope="col">D.Price</th>
+                                                  <th scope="col">D.Discount</th>
+                                                                                             
+                                                <th scope="col">Edit</th>
+                                               
+                                            </tr>
+                                        </thead>
+                                        <asp:PlaceHolder ID="Itemplaceholder" runat="server"></asp:PlaceHolder>
+                                    </LayoutTemplate>
+                                    <ItemTemplate>
+                                        <tbody>
+                                            <tr>
+                                                <th style="width:20px !important;"><%#Container.DataItemIndex+1 %>
+                                                    
+                                                      <asp:Label ID="LblProductId" runat="server" Text='<%#Eval("ProductID")%>' Visible="false"></asp:Label>
+                                                    <asp:HiddenField ID="ProductID" runat="server" Value='<%#Eval("ProductID") %>' />
+                                                      <asp:HiddenField ID="BrandId" runat="server" Value='<%#Eval("BrandId") %>' />
+                                                      <asp:HiddenField ID="CategoryID" runat="server" Value='<%#Eval("CategoryID") %>' />
+                                                     <asp:Label ID="Description" runat="server" Text='<%#Eval("Description")%>' Visible="false"></asp:Label>
+                                                      <asp:Label ID="Price" runat="server" Text='<%#Eval("Price")%>' Visible="false"></asp:Label>
+                                                      <asp:Label ID="DealerPrice" runat="server" Text='<%#Eval("DealerPrice")%>' Visible="false"></asp:Label>
+                                                      <asp:Label ID="Discount" runat="server" Text='<%#Eval("Discount")%>' Visible="false"></asp:Label>
+                                                      <asp:Label ID="DealerDiscount" runat="server" Text='<%#Eval("DealerDiscount")%>' Visible="false"></asp:Label>
+                                                      <asp:Label ID="Tags" runat="server" Text='<%#Eval("Tags")%>' Visible="false"></asp:Label>
+                                                      <asp:Label ID="Highlights" runat="server" Text='<%#Eval("Highlights")%>' Visible="false"></asp:Label>
+                                                    <asp:Label ID="Image" runat="server" Text='<%#Eval("Image")%>' Visible="false"></asp:Label>
+                                                     <asp:Label ID="Quantity" runat="server" Text='<%#Eval("Quantity")%>' Visible="false"></asp:Label>
+                                                </th>
+                                                 <td style="width:20px !important; ">
+                                                    <asp:CheckBox ID="ChkBox" runat="server" />
+                                                </td>
+                                                    <td>
+                                                  <img src="../img/Products/<%#Eval("Image")%>" style="height:100px;border:solid 1px gray" />
+                                              </td>
+                                                <td>
+                                                    <asp:Label ID="ProductName" runat="server" Text='<%#Eval("ProductName")%>'></asp:Label>
+                                                </td>
+                                                    <td>
+                                                    <asp:Label ID="Label1" runat="server" Text='<%#Eval("BrandName")%>'></asp:Label>
+                                                </td>
+                                                    <td>
+                                                    <asp:Label ID="Label2" runat="server" Text='<%#Eval("CategoryName")%>'></asp:Label>
+                                                </td>
+                                           <td>
+                                                 <asp:Label ID="lbluserprice" Visible="true" ToolTip="Click to change Rate" TextAlign="Left"
+                                                                    Checked="false" Text=' <%# Eval("Price") %>' runat="server" Width="50px" />
+                                                                <asp:TextBox ID="Txtuserprice" Visible="false" runat="server" style="border:solid 1px green" Height="30px" Width="90px"
+                                                                    Text=' <%# Eval("Price") %>'></asp:TextBox>
+                                                
+                                                </td>
+                                                 <td>
+                                                       <asp:Label ID="lbluserdiscount" Visible="true" ToolTip="Click to change Rate" TextAlign="Left"
+                                                                    Checked="false" Text=' <%# Eval("Discount") %>' runat="server" Width="50px" />
+                                                                <asp:TextBox ID="Txtuserdiscount" Visible="false" runat="server" style="border:solid 1px green" Height="30px" Width="90px"
+                                                                    Text=' <%# Eval("Discount") %>'></asp:TextBox>
+                                                  
+                                                </td>
+                                                 <td>
+                                                     <asp:Label ID="lblDealerPrice" Visible="true" ToolTip="Click to change Rate" TextAlign="Left"
+                                                                    Checked="false" Text=' <%# Eval("DealerPrice") %>' runat="server" Width="50px" />
+                                                                <asp:TextBox ID="TxtDealerPrice" Visible="false" runat="server" style="border:solid 1px green" Height="30px" Width="90px"
+                                                                    Text=' <%# Eval("DealerPrice") %>'></asp:TextBox>
+                                                  
+                                                </td>
+                                                 <td>
+                                                       <asp:Label ID="lblDealerdiscount" Visible="true" ToolTip="Click to change Rate" TextAlign="Left"
+                                                                    Checked="false" Text=' <%# Eval("DealerDiscount") %>' runat="server" Width="50px" />
+                                                                <asp:TextBox ID="TxtDealerdiscount" Visible="false" runat="server" style="border:solid 1px green" Height="30px" Width="90px"
+                                                                    Text=' <%# Eval("DealerDiscount") %>'></asp:TextBox>
+                                                   
+                                                </td>
+                                                <td>
+                                                    <asp:LinkButton ID="LnkEdit" runat="server" CommandName="Edit" Font-Bold="true" ForeColor="#3c8dbc"><i class="fa fa-fw fa-edit"></i> Edit</asp:LinkButton>
+                                                </td>
+                                               
+                                            </tr>
+
+                                            
+                                            
+                                        </tbody>
+                                    </ItemTemplate>
+                                </asp:ListView>
+
+                            </table>
+
+                        </div>
+                    </div>
+               
+            </div>
+           
+        </div>
+    </div>
+
+</asp:Content>
+

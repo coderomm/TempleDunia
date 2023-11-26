@@ -1,0 +1,109 @@
+﻿@model templedunia.Models.Blog_Table
+
+@{
+    ViewBag.Title = "Add Article";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="page-content">
+        <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="breadcrumb-title pe-3">Forms</div>
+            <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 p-0">
+                        <li class="breadcrumb-item">
+                            <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Form Layouts</li>
+                    </ol>
+                </nav>
+            </div>
+
+        </div>
+        <!--end breadcrumb-->
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h6 class="mb-0 text-uppercase">Add Article</h6>
+                <hr>
+                <div class="card border-top border-0 border-4 border-danger">
+                    <div class="card-body p-5">
+                        <div class="card-title d-flex align-items-center">
+                            <div>
+                                <i class="bx bxs-user me-1 font-22 text-danger"></i>
+                            </div>
+                            <h5 class="mb-0 text-danger">Add Article</h5>
+                        </div>
+                        <hr>
+                        @using (Html.BeginForm("AddArticle", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "row g-3" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <label for="blogTitle" class="form-label">Blog Title</label>
+                                <input name="blogTitle" type="text" class="form-control border-start-0" id="blogTitle" placeholder="Blog Title">
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <label for="blogDate" class="form-label">Blog Date</label>
+                                <input name="blogDate" class="form-control" id="blogDate" placeholder="Blog Date" />
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <label for="blogImage" class="form-label">Blog Image </label>
+                                <input name="blogImage" class="form-control" type="file" id="blogImage">
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <label for="blogDetail" class="form-label">Blog Detail</label>
+                                <textarea name="blogDetail" class="form-control" id="blogDetail" placeholder="Blog Detail" rows="3"></textarea>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-danger px-5">Add Article</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <h6 class="mb-0 text-uppercase">Blog Table</h6>
+        <hr>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Title</th>
+                                <th>Date</th>
+                                <th>Image</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in @ViewBag.AllArticle)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.blogTitle</td>
+                                    <td>@item.blogDate</td>
+                                    <td><img src="@Url.Content("~/Content/assets/Images/ArticleImages/" + @item.blogImage)" class="img-fluid" height="50" width="50" /></td>
+                                    <td><a href="@Url.Action("EditArticle", "Admin",new {id=item.Id})" class="btn btn-primary">Edit</a></td>
+                                    <td><a href="@Url.Action("DeleteArticle", "Admin",new {id=item.Id})" class="btn btn-danger">Delete</a></td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

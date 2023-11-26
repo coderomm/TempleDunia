@@ -1,0 +1,55 @@
+﻿@model IEnumerable<templedunia.Models.Blog_Table>
+
+@{
+    ViewBag.Title = "Articles";
+}
+
+<section class="hero-wrap hero-wrap-2 d-flex justify-content-end align-items-center" style="background-image: url('../Content/images/blog_bnrimg.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-none d-md-block"></div>
+            <div class="col-lg-6 col-12 text-center" style="margin-bottom:9rem;">
+                <h3 class="hindiTitle" style="font-weight:700;color:#555;">अहिंसा परमो धर्मः।</h3>
+                <h1 class="" style="color:white;">TempleDuniya – Discover Temples of the World</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section bg-light">
+    <div class="container-xl">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 heading-section text-center" data-aos="fade-up" data-aos-duration="1000">
+                <span class="subheading">Our Article</span>
+                <h2>Latest From Our Article</h2>
+            </div>
+        </div>
+        <div class="row">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-md-3 d-flex">
+                    <div class="blog-entry justify-content-end" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+                        <a href="@Url.RouteUrl("aurl",new { Id = item.Id })" class="block-20 img d-flex align-items-end" style="background-image: url('Content/assets/Images/ArticleImages/@item.blogImage');">
+                            <div class="list-team d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="img" style="background-image: url('Content/images/person_1.jpg');"></div>
+                                    <h3 class="ml-2 mb-0">Admin</h3>
+                                </div>
+                                <div class="text-right">
+                                    <span class="ion-ios-heart-empty"></span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="text">
+                            <p class="meta"><span>@item.blogDate</span><a href="#">3 Comments</a></p>
+                            <h3 class="heading mb-3"><a href="@Url.RouteUrl("aurl",new { Id = item.Id })">@item.blogTitle</a></h3>
+                            <p>@Html.Raw(item.blogDetail)</p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+

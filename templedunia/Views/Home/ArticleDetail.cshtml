@@ -1,0 +1,99 @@
+﻿@model templedunia.Models.Blog_Table
+
+@{
+    ViewBag.Title = "Articles";
+}
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../../Content/assets//Images//ArticleImages/@Model.blogImage');">
+
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 pt-5 text-center">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="~/">Home <i class="fa fa-chevron-right"></i></a></span> <span class="mr-2"><a href="~/Article">Article <i class="fa fa-chevron-right"></i></a></span> <span>Article Single <i class="fa fa-chevron-right"></i></span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 blog-single">
+                <h2 class="mb-3">@Model.blogTitle</h2>
+                <p>
+                    <img src="~/Content/assets/Images/ArticleImages/@Model.blogImage" alt="" class="img-fluid">
+                </p>
+                <p>@Model.blogDetail</p>
+                <div class="tag-widget post-tag-container mb-5 mt-5">
+                    <div class="tagcloud">
+                        <a href="#" class="tag-cloud-link">Hinduism</a>
+                        <a href="#" class="tag-cloud-link">Temples</a>
+                        <a href="#" class="tag-cloud-link">Religious</a>
+                        <a href="#" class="tag-cloud-link">Spiritual</a>
+                    </div>
+                </div>
+                <div class="pt-5 mt-5">
+                    <h3 class="mb-5" style="font-size: 28px; font-weight: bold;">1 Comments</h3>
+                    <ul class="comment-list">
+                        <li class="comment">
+                            <div class="vcard bio">
+                                <img src="~/Content/assets/Images/TempleImages/omsharma.jpg" alt="Image placeholder">
+                            </div>
+                            <div class="comment-body">
+                                <h3>Om Sharma</h3>
+                                <div class="meta">June 20, 2023 at 3:03pm</div>
+                                <p>A peaceful and culturally rich experience. The temple's beauty and spirituality are truly captivating.</p>
+                                <p><a href="https://www.linkedin.com/in/om-sharma-9abb3a258/" class="reply">Reply</a></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 sidebar pl-md-4">
+                <div class="sidebar-box bg-light rounded">
+                    <form action="#" class="search-form">
+                        <div class="form-group">
+                            <span class="icon fa fa-search"></span>
+                            <input type="text" class="form-control" placeholder="Search...">
+                        </div>
+                    </form>
+                </div>
+               
+                <div class="sidebar-box">
+                    <h3>Recent Articles</h3>
+                    @foreach (var item in ViewBag.allarticles)
+                    {
+                        <div class="block-21 mb-4 d-flex">
+                            <a href="@Url.RouteUrl("aurl",new { Id = item.Id })" class="blog-img mr-4" style="background-image: url(../../Content/assets/Images/ArticleImages/@item.blogImage);"></a>
+                            <div class="text">
+                                <h3 class="heading"><a href="@Url.RouteUrl("aurl",new { Id = item.Id })">@item.blogTitle</a></h3>
+                                <div class="meta">
+                                    <div><a href="@Url.RouteUrl("aurl",new { Id = item.Id })"><span class="fa fa-calendar"></span> @item.blogDate</a></div>
+                                    <div><a href="@Url.RouteUrl("aurl",new { Id = item.Id })"><span class="fa fa-user"></span> Admin</a></div>
+                                    <div><a href="@Url.RouteUrl("aurl",new { Id = item.Id })"><span class="fa fa-comment"></span> 01</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="sidebar-box">
+                    <h3>Tag Cloud</h3>
+                    <div class="tagcloud">
+                        <a href="#" class="tag-cloud-link">explore</a>
+                        <a href="#" class="tag-cloud-link">listing</a>
+                        <a href="#" class="tag-cloud-link">directory</a>
+                        <a href="#" class="tag-cloud-link">places</a>
+                        <a href="#" class="tag-cloud-link">food</a>
+                        <a href="#" class="tag-cloud-link">sports</a>
+                        <a href="#" class="tag-cloud-link">circus</a>
+                        <a href="#" class="tag-cloud-link">theater</a>
+                        <a href="#" class="tag-cloud-link">games</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+

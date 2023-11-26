@@ -1,0 +1,278 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Data.OleDb;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Data.SqlClient;
+
+public partial class OrderList : System.Web.UI.Page
+{
+    public string DeliverdDate = "";
+    public string DeliverdTime = "";
+    ClsConnection Cnn = new ClsConnection();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["Admin_id"] == null)
+        {
+            Response.Redirect("superlogin.aspx");
+        }
+
+
+        if (!IsPostBack)
+        {
+            System.Data.DataTable Dt = Cnn.FillTable("Select ProductName,ShadeNo,Pending From V#PendingOrderStock Order By ProductId", "ttt");
+         
+            gvCustomers.DataSource = Dt;
+            gvCustomers.DataBind();
+         
+        }
+
+    }
+
+    public override void VerifyRenderingInServerForm(System.Web.UI.Control control)
+    {
+        /* Confirms that an HtmlForm control is rendered for the specified ASP.NET
+           server control at run time. */
+    }
+
+
+    protected void ImgBtnPrint_Click(object sender, ImageClickEventArgs e)
+    {
+        //tdPrint.Visible = false;
+        //Session["AdminPrint"] = divPrint;
+        //Response.Redirect("Print.aspx");
+    }
+    protected void BtnExport_Click(object sender, EventArgs e)
+    {
+        //Response.Clear();
+        //Response.Buffer = true;
+        //Response.AddHeader("content-disposition", "attachment;filename=Customers.xls");
+        //Response.Charset = "";
+        //Response.ContentType = "application/vnd.ms-excel";
+
+        //StringWriter sw = new StringWriter();
+        //HtmlTextWriter hw = new HtmlTextWriter(sw);
+
+        //for (int i = 0; i < gvCustomers.Rows.Count; i++)
+        //{
+        //    //Apply text style to each Row
+        //    gvCustomers.Rows[i].Attributes.Add("class", "textmode");
+        //}
+
+        //gvCustomers.RenderControl(hw);
+
+        ////style to format numbers to string
+        //string style = @"<style> .textmode { mso-number-format:\@; } </style>";
+        //Response.Write(style);
+        //Response.Output.Write(sw.ToString());
+        //Response.Flush();
+        //Response.End();
+
+        System.IO.StringWriter sw = new System.IO.StringWriter();
+        System.Web.UI.HtmlTextWriter htw = new System.Web.UI.HtmlTextWriter(sw);
+
+        // Render grid view control.
+        gvCustomers.RenderControl(htw);
+
+        // Write the rendered content to a file.
+        string renderedGridView = sw.ToString();
+      
+       string path = Path.Combine("C:\\hostingspaces\\admin\\ankitsuitings.com\\wwwroot\\admin\\ExportedFile.xls");
+    //    string path = Path.Combine("E:\\arpit nuwal website & software backup 24.11.2018\\website all\\Ankit Suiting\\admin\\ExportedFile.xls");
+       
+        System.IO.File.WriteAllText(@"" + path + "", renderedGridView);
+        ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('File Exported Successfully!!');", true);
+    }
+
+    protected void BtnImport_Click(object sender, EventArgs e)
+    {
+        DataTable dt = new DataTable();
+        string path = Path.Combine("C:\\hostingspaces\\admin\\ankitsuitings.com\\wwwroot\\admin\\MyNew.xls");
+    //   string path = Path.Combine("E:\\arpit nuwal website & software backup 24.11.2018\\website all\\Ankit Suiting\\admin\\MyNew.xls");
+        if (FlUpload.HasFile)
+        {
+            if (System.IO.Path.GetExtension(FlUpload.FileName) == ".xls" || System.IO.Path.GetExtension(FlUpload.FileName) == ".xlsx")
+            {
+                FlUpload.SaveAs(path);
+            }
+
+            string filePath = FlUpload.FileName;
+            using (SpreadsheetDocument doc = SpreadsheetDocument.Open(@""+path+"", false))
+            {
+                Sheet sheet = doc.WorkbookPart.Workbook.Sheets.GetFirstChild<Sheet>();
+                Worksheet worksheet = (doc.WorkbookPart.GetPartById(sheet.Id.Value) as WorksheetPart).Worksheet;
+                IEnumerable<Row> rows = worksheet.GetFirstChild<SheetData>().Descendants<Row>();
+                foreach (Row row in rows)
+                {
+                    if (row.RowIndex.Value == 1)
+                    {
+                        foreach (Cell cell in row.Descendants<Cell>())
+                        {
+                            dt.Columns.Add(GetValue(doc, cell));
+                        }
+                    }
+                    else
+                    {
+                        dt.Rows.Add();
+                        int i = 0;
+                        foreach (Cell cell in row.Descendants<Cell>())
+                        {
+                            dt.Rows[dt.Rows.Count - 1][i] = GetValue(doc, cell);
+                            i++;
+                        }
+                    }
+                }
+            }
+            if (dt.Rows.Count > 0)
+            {
+                Cnn.Open();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    string ProductName = dt.Rows[i][0].ToString();
+                    string ShadeNo = dt.Rows[i][1].ToString();
+                    decimal ReadyStock = Convert.ToDecimal(dt.Rows[i][2].ToString());
+                    decimal UnderProcessStock = Convert.ToDecimal(dt.Rows[i][3].ToString());
+                    decimal Quantity = ReadyStock + UnderProcessStock;
+                    Cnn.ExecuteNonQuery("Update M_ShadeMaster Set ReadyStock=" + ReadyStock + ",UnderProcessStock=" + UnderProcessStock + ",Quantity=" + UnderProcessStock + " Where ProductName='" + ProductName + "' AND ShadeNo='" + ShadeNo + "'");
+                     ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Data Imported Successfully!!');", true);
+                }
+            }
+        }
+
+        else
+            ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Please Select File to Import!!');", true);
+    }
+
+
+
+    private string GetValue(SpreadsheetDocument doc, Cell cell)
+    {
+        string value = cell.CellValue.InnerText;
+        if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
+        {
+            return doc.WorkbookPart.SharedStringTablePart.SharedStringTable.ChildElements.GetItem(int.Parse(value)).InnerText;
+        }
+        return value;
+    }
+
+    private void Import_To_Grid()
+    {
+
+        string connString = ConfigurationManager.ConnectionStrings["xls"].ConnectionString;
+        // Create the connection object
+        OleDbConnection oledbConn = new OleDbConnection(connString);
+        try
+        {
+            // Open connection
+            oledbConn.Open();
+
+            // Create OleDbCommand object and select data from worksheet Sheet1
+            OleDbCommand cmd = new OleDbCommand("SELECT * FROM [ExportedFile]", oledbConn);
+
+            // Create new OleDbDataAdapter
+            OleDbDataAdapter oleda = new OleDbDataAdapter();
+
+            oleda.SelectCommand = cmd;
+
+            // Create a DataSet which will hold the data extracted from the worksheet.
+            DataSet ds = new DataSet();
+
+            // Fill the DataSet from the data extracted from the worksheet.
+            oleda.Fill(ds, "Employees");
+
+            // Bind the data to the GridView
+            gvCustomers.DataSource = ds.Tables[0].DefaultView;
+            gvCustomers.DataBind();
+        }
+        catch
+        {
+        }
+        finally
+        {
+            // Close connection
+            oledbConn.Close();
+        }
+
+    }
+
+    protected void gvCustomers_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.Header)
+        {
+            e.Row.Cells[0].Text = "ProductName";
+        }
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        string strQuery = "select ProductName,ShadeNo,ReadyStock,UnderProcessStock  from M_ShadeMaster";
+        SqlCommand cmd = new SqlCommand(strQuery);
+        DataTable dt = GetData(cmd);
+        Response.Clear();
+        Response.Buffer = true;
+        Response.AddHeader("content-disposition",
+        "attachment;filename=ShadeList.csv");
+        Response.Charset = "";
+        Response.ContentType = "application/text";
+        StringBuilder sb = new StringBuilder();
+        for (int k = 0; k < dt.Columns.Count; k++)
+        {
+            //add separator
+            sb.Append(dt.Columns[k].ColumnName + ',');
+        }
+        //append new line
+        sb.Append("\r\n");
+        for (int i = 0; i < dt.Rows.Count; i++)
+        {
+
+            for (int k = 0; k < dt.Columns.Count; k++)
+            {
+                //add separator
+                sb.Append(dt.Rows[i][k].ToString().Replace(",", ";") + ',');
+            }
+
+            //append new line
+            sb.Append("\r\n");
+        }
+        Response.Output.Write(sb.ToString());
+        Response.Flush();
+        Response.End();
+
+    }
+
+    private DataTable GetData(SqlCommand cmd)
+    {
+
+        DataTable dt = new DataTable();
+        String strConnString = System.Configuration.ConfigurationManager.
+        ConnectionStrings["ShivShaktiSynthetics"].ConnectionString;
+        SqlConnection con = new SqlConnection(strConnString);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        cmd.CommandType = CommandType.Text;
+        cmd.Connection = con;
+        try
+        {
+            con.Open();
+            sda.SelectCommand = cmd;
+            sda.Fill(dt);
+            return dt;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            con.Close();
+            sda.Dispose();
+            con.Dispose();
+        }
+    }
+}

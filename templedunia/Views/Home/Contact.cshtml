@@ -1,0 +1,138 @@
+﻿@model templedunia.Models.ContactEnquire
+
+@{
+    ViewBag.Title = "Contact Us";
+}
+
+
+<section class="hero-wrap hero-wrap-2 d-flex align-items-center" style="background-image: url('../Content/images/contact_bnrimg.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-12 text-center">
+                <h3 class="hindiTitle" style="font-weight:700;color:white;">Explore Hinduism</h3>
+                <h1 class="" style="color:white;">ॐ लोकाः समस्ताः सुखिनो भवंतु</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section ftco-no-pt ftco-no-pb">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="wrapper">
+                    <div class="row g-0">
+                        <div class="col-lg-6">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h4>Jai Shree Krishna</h4>
+                                <h3>Contact us</h3>
+                                <p class="mb-4">We're open for any suggestion or just to have a chat</p>
+
+                                @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { id = "contactForm", name = "contactForm", @class = "contactForm" }))
+                                {
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input required type="text" class="form-control" name="uname" id="uname" placeholder="Name">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input required type="text" class="form-control" name="umob" id="umob" placeholder="Mobile">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input required type="email" class="form-control" name="uemail" id="uemail" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input required type="text" class="form-control" name="usub" id="usub" placeholder="Subject">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+<textarea required name="umsg" class="form-control" id="umsg" cols="30" rows="4" placeholder="Your a message here"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" style="margin-top:1.5rem;">
+                                            <div class="form-group">
+                                                <input type="submit" value="Send Message" class="btn btn-primary">
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                        <div id="msgsentdiv" class="col-md-12" style="margin-top:1.1rem;">
+                                            <div class="form-group mt-3">
+                                                <p id="msgsent"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="w-100 social-media mt-5">
+                                    <h3>Follow us here</h3>
+                                    <p>
+                                        <a href="#">Facebook</a>
+                                        <a href="#">Twitter</a>
+                                        <a href="#">Instagram</a>
+                                        <a href="#">Dribbble</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 d-flex align-items-stretch">
+                            <div class="img w-100" style="background-image: url(../../Content/assets/Images/TempleImages/krishna.jpg);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    $("#contactForm").submit(function (e) {
+        e.preventDefault(); // Prevent the form from submitting normally
+
+        var form = $(this);
+        var url = form.attr('action');
+        var data = form.serialize();
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    // Redirect to the desired page on successful login
+                    $('#msgsent').text('Your Enquiry has been sent ! We will contact you soon.');
+                    // Hide the message after 5 seconds
+                    setTimeout(function () {
+                        $('#msgsent').text('');
+                    }, 5000);
+                } else {
+                    // Show error message for incorrect login
+                    $('#msgsent').text('An error occurred while processing the request. Please try again later.');
+
+                    // Hide the message after 5 seconds
+                    setTimeout(function () {
+                        $('#msgsent').text('');
+                    }, 5000);
+                }
+            },
+            error: function () {
+                // Show error message for AJAX error
+                $('#msgsent').text('An error occurred while processing the request. Please try again later.');
+
+                // Hide the message after 5 seconds
+                setTimeout(function () {
+                    $('#msgsent').text('');
+                }, 5000);
+            }
+        });
+    });
+
+</script>

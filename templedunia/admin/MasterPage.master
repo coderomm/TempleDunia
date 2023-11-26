@@ -1,0 +1,221 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>templeworld.in
+    </title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="plugins/select2/select2.min.js"></script>
+    <link href="plugins/select2/select2.min.css" rel="stylesheet" />
+ 
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: red;
+            color: white;
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('ul.nav li.dropdown').hover(function () {
+                $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+            }, function () {
+                $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+            });
+        });
+    </script>
+    <style>
+          @media only screen and (max-width: 768px) {
+             .bg-image {
+          
+          background-size:contain !important;
+          height: 128px;
+            }
+
+           .bg_size {
+                height: 90px;
+            }
+
+            .ltn__breadcrumb-area {
+    padding-top: 40px;
+    padding-bottom: 20px; }
+  .ltn__breadcrumb-inner {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column;
+    flex-flow: column;
+    text-align: center; }
+    .ltn__breadcrumb-inner .ltn__breadcrumb-list {
+      margin-left: 0; }
+  .ltn__breadcrumb-list ul li {
+    font-size: 14px; } 
+
+
+   .page-title {
+        
+        margin-left:-180px;
+        }
+          }
+        
+        
+      
+        
+    </style>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body style="background-color:#E4E7EA">
+    
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+    <div>
+        <div class="container-fluid">
+
+</div>
+        <div  style="background-color:black">
+        <nav class="navbar navbar-inverse" style="background-color:black;color:white;border:none !important;padding:0px">
+  <div class="container-fluid" >
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#" style="color:white"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+       
+              <li><a href="AddCategory.aspx" style="color:white">Category</a></li>
+            
+       
+           <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="" style="color:white">Products<span class="caret"></span></a>
+          <ul class="dropdown-menu" style="background-color:#006495">
+              <li ><a href="Product.aspx" style="color:white;background-color:#006495">Add Products</a></li>
+          <%--     <li ><a href="ProductsActive.aspx" style="color:white;background-color:#006495">Active / Deactive Products</a></li>--%>
+              <li ><a href="EditProductlist.aspx" style="color:white;background-color:#006495">Edit Products</a></li>
+              <li ><a href="EditProductPrice.aspx" style="color:white;background-color:#006495">Edit Product Rate</a></li>
+             <%--  <li ><a href="RateUpdates.aspx" style="color:white;background-color:#006495"> Products Rate Updates</a></li>
+                  <li ><a href="RateChart.aspx" style="color:white;background-color:#006495">  Rate Charts</a></li>--%>
+          </ul>
+        </li>
+             <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" " style="color:white">Slider<span class="caret"></span></a>
+          <ul class="dropdown-menu" style="background-color:#006495">
+           <%--   <li ><a href="AppSlider.aspx" style="color:white;background-color:#006495">App Slider</a></li>--%>
+               <li ><a href="webslider.aspx" style="color:white;background-color:#006495">Website Slider</a></li>
+              <li ><a href="BannerAds.aspx" style="color:white;background-color:#006495">Banner Ads</a></li>
+               <li ><a href="ProductAds.aspx" style="color:white;background-color:#006495">Top Ads</a></li>
+              
+          </ul>
+        </li>
+         
+       
+     <%--  <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" " style="color:white">Gallery Photo<span class="caret"></span></a>
+          <ul class="dropdown-menu" style="background-color:#006495">
+              <li ><a href="GalleryPhotos.aspx" style="color:white;background-color:#006495">Add Gallery</a></li>
+               <li ><a href="GalleryActive.aspx" style="color:white;background-color:#006495">Active / Deactive Gallery</a></li>
+          </ul>
+        </li>--%>
+       <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" " style="color:white">Blog<span class="caret"></span></a>
+          <ul class="dropdown-menu" style="background-color:#006495">
+              <li ><a href="AddBlog.aspx" style="color:white;background-color:#006495">Blog Detail</a></li>
+               <%--<li ><a href="GalleryActive.aspx" style="color:white;background-color:#006495">Active / Deactive Gallery</a></li>--%>
+          </ul>
+        </li>    
+           
+     <%-- <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" " style="color:white">User List<span class="caret"></span></a>
+          <ul class="dropdown-menu" style="background-color:#006495">
+              <li ><a href="WaitingUserList.aspx" style="color:white;background-color:#006495">Waiting User List</a></li>
+               <li ><a href="UserList.aspx" style="color:white;background-color:#006495">User List</a></li>
+               <li ><a href="Deactiveuser.aspx" style="color:white;background-color:#006495">User De-Active</a></li>
+          </ul>
+        </li>--%>
+             <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" " style="color:white">   Order<span class="caret"></span></a>
+          <ul class="dropdown-menu" style="background-color:#006495">
+              <li ><a href="OrderDetails.aspx" style="color:white;background-color:#006495">Order List</a></li>
+               <li ><a href="OrderDetails.aspx?status=Delivered" style="color:white;background-color:#006495">Deliverd Order List</a></li>
+                 <li ><a href="OrderDetails.aspx?status=Cancelled" style="color:white;background-color:#006495">Cancel Order List</a></li>
+                 <li ><a href="OrderDetails.aspx?status=Dispatch" style="color:white;background-color:#006495">Disptach Order List</a></li>
+               <%--<li ><a href="PaymentList.aspx" style="color:white;background-color:#006495">Payment List</a></li>--%>
+               <li ><a href="OrderDetails.aspx?status=Pending" style="color:white;background-color:#006495">Pending Order List</a></li>
+                     
+          </ul>
+        </li>
+           <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" " style="color:white"> Courier Info<span class="caret"></span></a>
+          <ul class="dropdown-menu" style="background-color:#006495">
+              <li ><a href="CourierDetail.aspx" style="color:white;background-color:#006495">Courier Detail</a></li>
+              
+          </ul>
+        </li>
+          <%-- <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" " style="color:white"> Push Notification<span class="caret"></span></a>
+          <ul class="dropdown-menu" style="background-color:#006495">
+              <li ><a href="Push.aspx" style="color:white;background-color:#006495">Push Notification</a></li>
+              
+          </ul>
+        </li>--%>
+
+             <li><a href="UserList.aspx" style="color:white">User</a></li>
+           <li><a href="adddoctors.aspx" style="color:white">Doctors</a></li>
+            <li><a href="BookConsultlist.aspx" style="color:white">Consult </a></li>
+            
+          <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#" " style="color:white">Enquiry<span class="caret"></span></a>
+          <ul class="dropdown-menu" style="background-color:#006495">
+              <li ><a href="contactlist.aspx" style="color:white;background-color:#006495">Contact Enquiry</a></li>
+              <li ><a href="patientlist.aspx" style="color:white;background-color:#006495">Patient Enquiry</a></li>
+              <li><a href="Wellnesslist.aspx" style="color:white;background-color:#006495"">Ayurveda Wellness Center List </a></li>
+               <li><a href="Wellnessenquirylist.aspx" style="color:white;background-color:#006495"">Wellness Center Enquiry List </a></li>
+               <%--<li ><a href="GalleryActive.aspx" style="color:white;background-color:#006495">Active / Deactive Gallery</a></li>--%>
+          </ul>
+        </li> 
+          
+           <li><a href="addyoutube.aspx" style="color:white">Video </a></li>
+             <li><a href="review.aspx" style="color:white">Review </a></li>
+            <li><a href="ChangePassword.aspx" style="color:white">Password</a></li>
+          
+         
+      
+      </ul>
+   <ul class="nav navbar-nav navbar-right">
+       <li>
+        <a href="#" style="color:white">   Visitors    <asp:Label ID="Lblvisitors" runat="server" ></asp:Label></a> </li>
+   
+        <li>  
+          <asp:LinkButton ID="LinkButton1" runat="server" Style="color:white" OnClick="LinkButton1_Click"><span class="glyphicon glyphicon-log-in"></span> Logout</asp:LinkButton></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  </div>
+
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+    
+        </asp:ContentPlaceHolder><br /><br /><br />
+        <div class="container-fluid  footer">
+	<div class="row" style="background-color:#EF5354;padding:3px;color:white;text-align:center">
+        <h5>© 2022 De9 Store | By : SPMPLTECH</h5>
+	</div>
+</div>
+    </div>
+    </form>
+</body>
+</html>

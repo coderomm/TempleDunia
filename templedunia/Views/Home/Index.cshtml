@@ -1,0 +1,268 @@
+﻿@model IEnumerable<templedunia.Models.TempleListing>
+
+
+@{
+    ViewBag.Title = "Your Spiritual Destination";
+}
+
+<section class="hero-wrap" style="background-image: url('../Content/images/home_bnrimg.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-lg-8 text-center pb-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-9">
+                        <h3 class="hindiTitle" style="font-weight:700;color:white;">ॐ  हरे  कृष्ण  हरे  राम  ॐ</h3>
+                        <h1 class="">TempleDuniya -Your Spiritual Destination</h1>
+                        <p> We are a Hindu that belives in Lord Rama and Vishnu Deva the followers and We are a Hindu that belives in Lord Rama and Vishnu Deva. This is where you should start. </p>
+                    </div>
+                </div>
+                <form action="#" class="search-property-1 mt-md-5">
+                    <div class="row g-0">
+                        <div class="col-md d-flex">
+                            <div class="form-group p-3">
+                                <div class="form-field">
+                                    <div class="icon"><span class="fa fa-search"></span></div>
+                                    <input type="text" class="form-control" placeholder="What are you looking for?">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md d-flex">
+                            <div class="form-group d-flex w-100 border-0">
+                                <div class="form-field w-100 align-items-center d-flex align-items-stretch">
+                                    <a href="#" class="btn btn-primary d-block w-100 d-flex align-items-center justify-content-center py-3"><span><i class="ion-ios-search"></i> Search</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 heading-section text-center mb-5" data-aos="fade-up" data-aos-duration="1000">
+                <span class="subheading">Explore the holy lands of Hinduism, begin your pilgrimage – Temples You Should Not Miss on Your Spiritual Journey</span>
+                <h2 class="mb-4">DISCOVER OVER 100,000 HINDU TEMPLES</h2>
+            </div>
+        </div>
+        <div class="row">
+
+            @foreach (var Model in Model)
+            {
+                <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+                    <div class="listing-wrap">
+
+                        <a href="@Url.RouteUrl("turl",new { Id = @Model.Id })" class="img img-property d-flex align-items-center justify-content-center" style="background-image: url(Content/assets/Images/TempleImages/@Model.image1);">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <i class="fa fa-search"></i>
+                            </div>
+                        </a>
+                        <div class="text text-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="flaticon-amusement-park"></span>
+                            </div>
+                            <a href="@Url.RouteUrl("turl",new { Id = @Model.Id })" class="subheading">View more</a>
+                            <h3><a href="@Url.RouteUrl("turl",new { Id = @Model.Id })">@Model.name</a></h3>
+                            <ul class="">
+                                <li>
+                                    <p style="text-align:justify;">
+                                        @Html.Raw(Model.detail)
+                                    </p>
+                                </li>
+                            </ul>
+                            <div class="info-wrap2 d-flex align-items-center">
+                                <p class="heart">
+                                    <a href="@Url.RouteUrl("turl",new { Id = @Model.Id })" class="d-flex align-items-center justify-content-center"><i class="fa fa-map-marker"></i></a>
+                                </p>
+
+                                <p class="review">
+                                    <span class="rev">
+                                        <small>
+                                            @foreach (var s in ViewBag.slist[Model.Id])
+                                            {
+                                                <small> @s.StateName ,</small>
+                                            }
+                                            @foreach (var d in ViewBag.dlist[Model.Id])
+                                            {
+                                                <small> @d.DistrictName ,</small>
+                                            }
+                                            @foreach (var c in ViewBag.clist[Model.Id])
+                                            {
+                                                <small> @c.CityName</small>
+                                            }
+                                        </small>
+                                    </span>
+                                </p>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section ftco-about-section ftco-no-pt ftco-no-pb">
+    <div class="container-xl">
+        <div class="row g-xl-5">
+            <div class="col-md-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+                <img src="~/Content/assets/Images/TempleImages/trishul.png" class="img-fluid w-75" />
+            </div>
+            <div class="col-md-7 py-5 heading-section" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+                <div class="py-md-5">
+                    <span class="subheading">Welcome</span>
+                    <h2 class="mb-4">TempleDuniya - Your Spiritual Guide</h2>
+                    <p>TempleDuniya.com provides spiritual services to the millions of hindus across the world. We believe in facilitating the loving exchange of divine energy between you & your ishtadevata. From providing in-depth and original resources on the beliefs, philosophy & essential practices of Hinduism to having absorbing discussions on topics like Astrology, Yoga & Meditation.</p>
+                    <p>At TempleDuniya learn about Vedic Mantras, Slokas & Stotrams in Mantra Sangrah, explore the rich heritage of Hindu temples across the world in TempleDuniya and more.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container-xl">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 heading-section text-center" data-aos="fade-up" data-aos-duration="1000">
+                <span class="subheading">Our Article</span>
+                <h2>Latest From Our Article</h2>
+            </div>
+        </div>
+        <div class="row">
+
+            @foreach (var item in ViewBag.allarticles)
+            {
+                <div class="col-md-3 d-flex">
+                    <div class="blog-entry justify-content-end" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+                        <a href="@Url.RouteUrl("aurl",new { Id = item.Id })" class="block-20 img d-flex align-items-end" style="background-image: url('Content/assets/Images/ArticleImages/@item.blogImage');">
+                            <div class="list-team d-flex align-items-center mb-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="img" style="background-image: url('Content/images/person_1.jpg');"></div>
+                                    <h3 class="ml-2 mb-0">Admin</h3>
+                                </div>
+                                <div class="text-right">
+                                    <span class="ion-ios-heart-empty"></span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="text">
+                            <p class="meta"><span>@item.blogDate</span><a href="#">3 Comments</a></p>
+                            <h3 class="heading mb-3"><a href="@Url.RouteUrl("aurl",new { Id = item.Id })">@item.blogTitle</a></h3>
+                            <p>@Html.Raw(item.blogDetail)</p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+
+<section class="img v-section ftco-section">
+    <div class="overlay"></div>
+    <div class="container-xl">
+        <div class="row justify-content-center">
+            <div class="col-md-8 heading-section heading-section-white text-center mb-5" data-aos="fade-up" data-aos-duration="1000">
+                <span class="subheading">TempleDuniya – Get all Your Questions Answered</span>
+                <h2 class="mb-4">Spiritual Forum</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-12" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+                <div class="vid-img img d-flex align-items-center justify-content-center" style="background-image: url(../../Content/assets/Images/TempleImages/indian-hindu-temple-singapore.jpg);">
+                    <a href="https://vimeo.com/115041822" class="icon-video glightbox d-flex align-items-center justify-content-center">
+                        <i class="fa fa-play"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<section class="ftco-section testimony-section bg-light">
+    <div class="container-xl">
+        <div class="row justify-content-center pb-4">
+            <div class="col-md-7 text-center heading-section" data-aos="fade-up" data-aos-duration="1000">
+                <span class="subheading">What People Say</span>
+                <h2 class="mb-3">Happy People</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+                <div class="carousel-testimony">
+                    <div class="item">
+                        <div class="testimony-wrap">
+                            <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                            <div class="text">
+                                <p class="mb-4 msg"> We all wish to go to important temples across India but are always short on time with our busy daily schedule. TempleDuniya brings the experience online, Makes me feel blessed and happy! </p>
+                                <div class="d-flex align-items-center">
+                                    <div class="user-img" style="background-image: url(../../Content/assets/Images/TempleImages/omsharma.jpeg)"></div>
+                                    <div class="pl-3 tx">
+                                        <p class="name">Om Sharma</p>
+                                        <span class="position">Rajasthan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap">
+                            <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                            <div class="text">
+                                <p class="mb-4 msg"> I’m very impressed with the website Temple Duniya. Extremely informative and love the spiritual stream – great content on Hinduism, Spirituality, Yoga, Meditation and more. </p>
+                                <div class="d-flex align-items-center">
+                                    <div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+                                    <div class="pl-3 tx">
+                                        <p class="name">Arpit Nuwal</p>
+                                        <span class="position">Banglore</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap">
+                            <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                            <div class="text">
+                                <p class="mb-4 msg">
+                                    "I can't praise Temple Duniya enough! The website's spiritual stream and in-depth content on Hinduism, Spirituality, Yoga, Meditation, and more are exceptional."
+                                </p>
+                                <div class="d-flex align-items-center">
+                                    <div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
+                                    <div class="pl-3 tx">
+                                        <p class="name">Mohit Vyas</p>
+                                        <span class="position">Prayagraj</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="testimony-wrap">
+                            <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
+                            <div class="text">
+                                <p class="mb-4 msg"> "Temple Duniya is a treasure trove! The website offers valuable insights into Hinduism, Spirituality, Yoga, Meditation, and more. Truly enlightening!  Truly enlightening!"</p>
+                                <div class="d-flex align-items-center">
+                                    <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+                                    <div class="pl-3 tx">
+                                        <p class="name">Sunil Soni</p>
+                                        <span class="position">Patna</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
